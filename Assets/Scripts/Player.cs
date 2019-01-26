@@ -44,6 +44,14 @@ public class Player : MonoBehaviour
     public void HandleHit()
     {
         //Player was shot, deal with it
+        if(injured)
+        {
+            //end game
+        }
+        else
+        {
+            injured = true;
+        }
 
     }
 }

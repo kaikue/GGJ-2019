@@ -48,7 +48,7 @@ MonoBehaviour:
   enemyCount: 3
   projectile_speed: 20
   reload_speed: 1
-  projectile: {fileID: 4054393257098184783, guid: 8b748b312243a1d42938c2802fb0bfba,
+  projectile: {fileID: 3316016223172686970, guid: 393d8b9911faa6343bdf782c181fe600,
     type: 3}
   decomposeTime: 3
   topLimit: 3.5

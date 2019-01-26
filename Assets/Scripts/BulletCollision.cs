@@ -20,10 +20,11 @@ public class BulletCollision : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print(collision.gameObject);
         if(collision.gameObject.tag == "Player")
         {
-
+            Debug.Log("Handling player hit");
+            Player p = collision.gameObject.GetComponent<Player>();
+            p.HandleHit();
         }
         else if(collision.gameObject.tag == "Enemy")
         {

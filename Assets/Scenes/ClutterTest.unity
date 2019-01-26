@@ -345,17 +345,6 @@ PrefabInstance:
       propertyPath: gun
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 9058661037078644074, guid: 12f3a5c445b807f4aa76f820adce49f9,
-        type: 3}
-      propertyPath: projectile_speed
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 9058661037078644074, guid: 12f3a5c445b807f4aa76f820adce49f9,
-        type: 3}
-      propertyPath: projectile
-      value: 
-      objectReference: {fileID: 4054393257098184783, guid: 8b748b312243a1d42938c2802fb0bfba,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12f3a5c445b807f4aa76f820adce49f9, type: 3}
 --- !u!1 &860004532 stripped

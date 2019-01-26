@@ -48,8 +48,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile_speed: 20
-  projectile: {fileID: 4054393257098184783, guid: 8b748b312243a1d42938c2802fb0bfba,
+  projectile: {fileID: 3316016223172686970, guid: 393d8b9911faa6343bdf782c181fe600,
     type: 3}
+  injured: 0
 --- !u!50 &8593991989662920833
 Rigidbody2D:
   serializedVersion: 4

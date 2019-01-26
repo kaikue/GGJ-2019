@@ -57,11 +57,7 @@ public class EnemyActions : MonoBehaviour
         //CHANGE SPRITE SET
         //SpriteRenderer s = GetComponent<SpriteRenderer>();
         //s.sprite = Resources.Load<Sprite>("Player/Injured/Playerinj_0001");
+        Destroy(gameObject, decomposeTime);
+    }
 
-    }
-    public IEnumerator Decompose()
-    {
-        yield return new WaitForSeconds(decomposeTime);
-        Destroy(gameObject);
-    }
 }
