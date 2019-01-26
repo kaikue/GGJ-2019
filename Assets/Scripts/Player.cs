@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+	private float SPEED = 5.0f;
+
 	private Rigidbody2D rb;
 
 	private void Start()
@@ -13,8 +15,8 @@ public class Player : MonoBehaviour
 	
     private void FixedUpdate()
     {
-        Vector2 velocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 velocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * SPEED;
 		rb.velocity = velocity;
-		rb.MovePosition(rb.position + rb.velocity * Time.deltaTime);
+		//rb.MovePosition(rb.position + rb.velocity * Time.deltaTime);
     }
 }
