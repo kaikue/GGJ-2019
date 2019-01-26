@@ -51,7 +51,4 @@ MonoBehaviour:
   projectile: {fileID: 3316016223172686970, guid: 393d8b9911faa6343bdf782c181fe600,
     type: 3}
   decomposeTime: 3
-  topLimit: 3.5
-  bottomLimit: -3.5
-  leftLimit: -10
-  rightLimit: 10
+  field: {fileID: 0}
