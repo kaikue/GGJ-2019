@@ -246,7 +246,7 @@ SpriteRenderer:
   m_SortingLayerID: -1910438727
   m_SortingLayer: -4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 859c418b7e4030c4ab2cc4c560ba3c27, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c1faa8bccb68de449a8b3f6fbefc7a41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -375,9 +375,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a217fa18037354448f6a58fc88baa02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTime: 5
-  targetTime: 3
-  targetSprite: {fileID: 3434492403771553596, guid: 71289843023a13e42bb25fb225f48e67,
+  spawnTime: 3
+  targetTime: 1
+  targetSprite: {fileID: 8365607965763432461, guid: 2d226a785b1e36d4ab61f17962f03f5e,
     type: 3}
   explosion: {fileID: 3045912394745440572, guid: 50f8041a65294604db2e57d5f6a69eca,
     type: 3}
@@ -540,6 +540,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9058661037078644074, guid: 12f3a5c445b807f4aa76f820adce49f9,
+        type: 3}
+      propertyPath: projectile
+      value: 
+      objectReference: {fileID: 3316016223172686970, guid: 393d8b9911faa6343bdf782c181fe600,
+        type: 3}
     - target: {fileID: 6467201688459789790, guid: 12f3a5c445b807f4aa76f820adce49f9,
         type: 3}
       propertyPath: m_Name
