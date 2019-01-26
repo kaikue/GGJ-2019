@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     const int STATE_IDLE = 0;
     const int STATE_WALK = 1;
     const int STATE_INJ = 2;
+    const int STATE_DEAD = 3;
 
     string _currentDirection = "left";
     int _currentAnimationState = STATE_IDLE;
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void FixedUpdate()
+    void Update()
     {
         
         Player p = GetComponentInParent<Player>();
@@ -45,14 +46,19 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (p.injured == false)
+            if (p.killed)
             {
-                changeState(STATE_IDLE);
+                changeState(STATE_DEAD);
             }
-            else
+            else if(p.injured)
             {
                 changeState(STATE_INJ);
             }
+            else
+            {
+                changeState(STATE_IDLE);
+            }
+            
         }
     }
 
@@ -71,6 +77,9 @@ public class PlayerController : MonoBehaviour
                 break;
             case STATE_INJ:
                 animator.SetInteger("state", STATE_INJ);
+                break;
+            case STATE_DEAD:
+                animator.SetInteger("state", STATE_DEAD);
                 break;
         }
         _currentAnimationState = state;
