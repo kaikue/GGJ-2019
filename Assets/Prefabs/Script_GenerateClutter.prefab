@@ -43,9 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00bf91abf0662c94db953f3edafc204c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leaf: {fileID: 6604375313462093685, guid: 0fb48cbbe0f83a449a17ead6d152f617, type: 3}
+  leaf: {fileID: 9036310558488367800, guid: 0611f3cc3aa5e924db4bc3d1a9ea6d7d, type: 3}
   clutterCount: 10
-  topLimit: 3.5
-  bottomLimit: -3.5
-  leftLimit: -10
-  rightLimit: 10
+  field: {fileID: 0}

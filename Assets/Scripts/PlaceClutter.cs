@@ -7,18 +7,16 @@ public class PlaceClutter : MonoBehaviour
     public GameObject leaf;
     public int clutterCount;
 
-    public float topLimit;
-    public float bottomLimit;
-    public float leftLimit;
-    public float rightLimit;
+    public GameObject field;
 
     // Start is called before the first frame update
     void Start()
     {
+        SpriteRenderer fieldGraphic = field.GetComponent<SpriteRenderer>();
         for (int i = 0; i < clutterCount; ++i)
         {
-            float x = Random.Range(leftLimit, rightLimit);
-            float y = Random.Range(bottomLimit, topLimit);
+            float x = Random.Range(fieldGraphic.transform.position.x - fieldGraphic.size.x / 2.0f, fieldGraphic.transform.position.x + fieldGraphic.size.x / 2.0f);
+            float y = Random.Range(fieldGraphic.transform.position.y - fieldGraphic.size.y / 2.0f, fieldGraphic.transform.position.y + fieldGraphic.size.y / 2.0f);
             Instantiate(leaf, new Vector3(x, y, 0), Quaternion.identity);
         }
     }
