@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7920080255130008582}
   - component: {fileID: 7920080255130008585}
   m_Layer: 0
-  m_Name: GenerateClutterScript
+  m_Name: Script_GenerateClutter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
