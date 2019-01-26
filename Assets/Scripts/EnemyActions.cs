@@ -9,12 +9,13 @@ public class EnemyActions : MonoBehaviour
 
     public float projectile_speed;
     public float reload_speed;
+	public float shoot_distance;
     public GameObject projectile;
-    private bool gunLoaded = true;
+	public Transform bulletSpawnPoint;
+	private bool gunLoaded = true;
     private bool alive = true;
 
     private float lastLook = -1;    //start left towards where player starts
-    private const float SPRITE_SIZE_OFFSET = 1.5f; //TEMP
     public float decomposeTime;
     
     // Start is called before the first frame update
@@ -31,11 +32,10 @@ public class EnemyActions : MonoBehaviour
         //FIRING
         //TODO - actually get direction based on movement
 
-        if(alive && gunLoaded && playerBox.bounds.Contains(
-            new Vector3(playerBox.bounds.center.x, transform.position.y, playerBox.bounds.center.z)))
+        if(alive && gunLoaded && CanTargetPlayer())
         {
             //shoot
-            GameObject shot = Instantiate(projectile, new Vector2(transform.position.x + lastLook * SPRITE_SIZE_OFFSET, transform.position.y), Quaternion.identity);
+            GameObject shot = Instantiate(projectile, bulletSpawnPoint.transform.position, Quaternion.identity);
             Rigidbody2D rb = shot.GetComponent<Rigidbody2D>();
             rb.velocity = transform.right * projectile_speed * lastLook;
             Debug.Log("velocity=" + rb.velocity);
@@ -44,6 +44,12 @@ public class EnemyActions : MonoBehaviour
         }
         
     }
+
+	public bool CanTargetPlayer()
+	{
+		RaycastHit2D raycast = Physics2D.Raycast(bulletSpawnPoint.transform.position, Vector2.right * lastLook, shoot_distance, LayerMask.GetMask("Default"));
+		return raycast.collider != null && raycast.collider.gameObject.CompareTag("Player");
+	}
 
     public IEnumerator Reload()
     {
