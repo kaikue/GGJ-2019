@@ -10,6 +10,7 @@ public class PlaceEnemy : MonoBehaviour
     public float projectile_speed;
     public float reload_speed;
     public GameObject projectile;
+    public float decomposeTime;
 
     public float topLimit;
     public float bottomLimit;
@@ -29,6 +30,7 @@ public class PlaceEnemy : MonoBehaviour
             actionsScript.projectile = projectile;
             actionsScript.projectile_speed = projectile_speed;
             actionsScript.reload_speed = reload_speed;
+            actionsScript.decomposeTime = decomposeTime;
         }
     }
 

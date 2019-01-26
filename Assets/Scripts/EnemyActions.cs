@@ -11,9 +11,11 @@ public class EnemyActions : MonoBehaviour
     public float reload_speed;
     public GameObject projectile;
     private bool gunLoaded = true;
+    private bool alive = true;
 
     private float lastLook = -1;    //start left towards where player starts
     private const float SPRITE_SIZE_OFFSET = 1.5f; //TEMP
+    public float decomposeTime;
     
     // Start is called before the first frame update
     void Start()
@@ -29,13 +31,12 @@ public class EnemyActions : MonoBehaviour
         //FIRING
         //TODO - actually get direction based on movement
 
-        if(gunLoaded && playerBox.bounds.Contains(
+        if(alive && gunLoaded && playerBox.bounds.Contains(
             new Vector3(playerBox.bounds.center.x, transform.position.y, playerBox.bounds.center.z)))
         {
             //shoot
             GameObject shot = Instantiate(projectile, new Vector2(transform.position.x + lastLook * SPRITE_SIZE_OFFSET, transform.position.y), Quaternion.identity);
             Rigidbody2D rb = shot.GetComponent<Rigidbody2D>();
-            rb.gravityScale = 0;
             rb.velocity = transform.right * projectile_speed * lastLook;
             Debug.Log("velocity=" + rb.velocity);
             gunLoaded = false;
@@ -48,5 +49,19 @@ public class EnemyActions : MonoBehaviour
     {
         yield return new WaitForSeconds(reload_speed);
         gunLoaded = true;
+    }
+
+    public void Kill()
+    {
+        alive = false;
+        //CHANGE SPRITE SET
+        //SpriteRenderer s = GetComponent<SpriteRenderer>();
+        //s.sprite = Resources.Load<Sprite>("Player/Injured/Playerinj_0001");
+
+    }
+    public IEnumerator Decompose()
+    {
+        yield return new WaitForSeconds(decomposeTime);
+        Destroy(gameObject);
     }
 }

@@ -50,6 +50,7 @@ MonoBehaviour:
   reload_speed: 1
   projectile: {fileID: 4054393257098184783, guid: 8b748b312243a1d42938c2802fb0bfba,
     type: 3}
+  decomposeTime: 3
   topLimit: 3.5
   bottomLimit: -3.5
   leftLimit: -10
