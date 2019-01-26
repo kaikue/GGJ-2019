@@ -6,16 +6,15 @@ public class Player : MonoBehaviour
 {
 	private Rigidbody2D rb;
 
-    // Start is called before the first frame update
-    void Start()
+	private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
-    // Update is called once per frame
-    void Update()
+	
+    private void FixedUpdate()
     {
         Vector2 velocity = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 		rb.velocity = velocity;
+		rb.MovePosition(rb.position + rb.velocity * Time.deltaTime);
     }
 }
