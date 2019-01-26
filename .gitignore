@@ -34,3 +34,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+/Assets/Scripts/AnimationScript.cs
+/Assets/Scripts/AnimationScript.cs.meta

@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        
+        Player p = GetComponentInParent<Player>();
         if (Input.GetAxis("Horizontal") != 0)
         {
             if (Input.GetAxis("Horizontal") < 0)
@@ -43,7 +45,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (true)
+            if (p.injured == false)
             {
                 changeState(STATE_IDLE);
             }
@@ -68,7 +70,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetInteger("state", STATE_IDLE);
                 break;
             case STATE_INJ:
-                animator.SetInteger("State", STATE_INJ);
+                animator.SetInteger("state", STATE_INJ);
                 break;
         }
         _currentAnimationState = state;
