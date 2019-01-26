@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class Player : MonoBehaviour
 
     public bool injured = false;
     public bool killed = false;
+
+    public _GLOBAL_GAME_DATA data;
 
     private void Start()
     {
@@ -51,6 +54,9 @@ public class Player : MonoBehaviour
         if(injured)
         {
             //end game
+            data.levelSuccess[data.level] = false;
+            ++data.level;
+            SceneManager.LoadScene("MainMenu");
         }
         else
         {
@@ -64,7 +70,9 @@ public class Player : MonoBehaviour
         if(other.gameObject.CompareTag("Explosion"))
         {
             //end game
-
+            data.levelSuccess[data.level] = false;
+            ++data.level;
+            SceneManager.LoadScene("MainMenu");
         }
     }
 
