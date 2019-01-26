@@ -44,6 +44,12 @@ TagManager:
   - name: Background
     uniqueID: 1320925151
     locked: 0
+  - name: Units
+    uniqueID: 1180230799
+    locked: 0
+  - name: Ammunition
+    uniqueID: 256805033
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
