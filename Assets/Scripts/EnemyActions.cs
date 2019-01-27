@@ -7,6 +7,7 @@ public class EnemyActions : MonoBehaviour
     public GameObject player;
     private BoxCollider2D playerBox;
 	private Rigidbody2D rb;
+	private SpriteRenderer sr;
 
     public float projectile_speed;
     public float reload_speed;
@@ -25,6 +26,7 @@ public class EnemyActions : MonoBehaviour
     void Start()
     {
 		rb = GetComponent<Rigidbody2D>();
+		sr = GetComponent<SpriteRenderer>();
         playerBox = player.GetComponent<BoxCollider2D>();
     }
 
@@ -67,6 +69,16 @@ public class EnemyActions : MonoBehaviour
 		}
 
 		rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(0, moveY * run_speed), acceleration);
+		if (player.transform.position.x < transform.position.x)
+		{
+			lastLook = -1;
+			transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+		}
+		else
+		{
+			lastLook = 1;
+			transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+		}
 	}
 
 	public bool CanTargetPlayer()
