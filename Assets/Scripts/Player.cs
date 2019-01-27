@@ -42,7 +42,7 @@ public class Player : MonoBehaviour
             if (Input.GetAxis("Horizontal") != 0)
                 lastLook = Mathf.Sign(Input.GetAxis("Horizontal"));
             //Debug.Log("Axis=" + Input.GetAxis("Horizontal").ToString() + " Last look x=" + lastLook.ToString());
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetButtonDown("Fire1"))
             {
                 GameObject shot = Instantiate(projectile, bulletSpawnPoint.transform.position, Quaternion.identity);
                 Rigidbody2D rb = shot.GetComponent<Rigidbody2D>();
