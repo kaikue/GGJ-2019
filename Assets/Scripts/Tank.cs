@@ -34,7 +34,7 @@ public class Tank : MonoBehaviour
 
 	private void Shoot()
 	{
-		Vector2 direction = (bulletSpawnPoint.transform.position - player.transform.position).normalized;
+		Vector2 direction = (player.transform.position - bulletSpawnPoint.transform.position).normalized;
 
 		GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
 		Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
