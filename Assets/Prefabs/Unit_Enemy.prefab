@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16dbc033ca2390a4fa16249d1261b59c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 5817573520862228802, guid: 12f3a5c445b807f4aa76f820adce49f9, type: 3}
   projectile_speed: 0
   reload_speed: 0
   run_speed: 2
