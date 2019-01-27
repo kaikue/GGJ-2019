@@ -5,14 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-	private float SPEED = 5.0f;
+    private float SPEED = 5.0f;
     public float projectile_speed;
     public float deathTime;
     public GameObject projectile;
     public Transform bulletSpawnPoint;
+    public int startingLives;
 
     private Rigidbody2D rb;
     private float lastLook = 1; //right
+    private Vector3 startPosition;
+    private int currentLives;
 
     public bool injured = false;
     public bool killed = false;
@@ -21,9 +24,11 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        startPosition = transform.position;
+        currentLives = startingLives;
         rb = GetComponent<Rigidbody2D>();
     }
-	
+
     private void FixedUpdate()
     {
         if (!killed)
@@ -52,14 +57,14 @@ public class Player : MonoBehaviour
     public void HandleHit()
     {
         //Player was shot, deal with it
-        if(injured)
+        if (injured)
         {
             //end game
-            StartCoroutine(EndLevel(false));
+            checkPlayerDeath();
         }
         else
         {
-            //injured = true;
+            injured = true;
             SoldierAudio a = GetComponentInChildren<SoldierAudio>();
             a.PlayInjury();
         }
@@ -68,28 +73,43 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.gameObject.CompareTag("Explosion"))
+        if (other.gameObject.CompareTag("Explosion"))
         {
-            injured = true;
+            //injured = true;
             //end game
-            StartCoroutine(EndLevel(false));
+            checkPlayerDeath();
         }
 
-		if (other.gameObject.CompareTag("DestroySpot"))
-		{
-			//TODO: throw grenade animation
-			other.GetComponentInParent<Tank>().BlowUp();
-			StartCoroutine(EndLevel(true));
-		}
+        if (other.gameObject.CompareTag("DestroySpot"))
+        {
+            //TODO: throw grenade animation
+            other.GetComponentInParent<Tank>().BlowUp();
+            StartCoroutine(EndLevel(true));
+        }
     }
+
+    private void checkPlayerDeath() {
+        SoldierAudio a = GetComponentInChildren<SoldierAudio>();
+        a.PlayDeath();
+        --currentLives;
+        //if player is out of lives, end the level
+        if(currentLives == 0)
+            StartCoroutine(EndLevel(false));
+        else
+        {
+            //if the player has more lives, reset the player to the original location
+            transform.position = startPosition;
+            //rb.position = startPosition;
+            injured = false;
+        }
+    }
+
 
     private IEnumerator EndLevel(bool success)
     {
 		if (!success)
 		{
 			killed = true;
-            SoldierAudio a = GetComponentInChildren<SoldierAudio>();
-            a.PlayDeath();
             Destroy(gameObject.GetComponent<Rigidbody2D>());
 		}
 

@@ -54,6 +54,7 @@ MonoBehaviour:
   projectile: {fileID: 3316016223172686970, guid: 393d8b9911faa6343bdf782c181fe600,
     type: 3}
   bulletSpawnPoint: {fileID: 7367881701287823116}
+  startingLives: 3
   injured: 0
   killed: 0
   data: {fileID: 0}
