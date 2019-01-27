@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            injured = true;
+            //injured = true;
             SoldierAudio a = GetComponentInChildren<SoldierAudio>();
             a.PlayInjury();
         }

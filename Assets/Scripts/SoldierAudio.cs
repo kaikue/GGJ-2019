@@ -23,21 +23,21 @@ public class SoldierAudio : MonoBehaviour
     public void PlayGunshot()
     {
         AudioSource a = GetComponent<AudioSource>();
-        //TODO vary IAW http://andrewmushel.com/sound-effect-variation-in-unity/
-        a.PlayOneShot(gunShots[0]);
+        int clipIndex = Random.Range(0, gunShots.Length);
+        a.PlayOneShot(gunShots[clipIndex]);
     }
 
     public void PlayInjury()
     {
         AudioSource a = GetComponent<AudioSource>();
-        //TODO vary IAW http://andrewmushel.com/sound-effect-variation-in-unity/
-        a.PlayOneShot(injuries[0]);
+        int clipIndex = Random.Range(0, injuries.Length);
+        a.PlayOneShot(injuries[clipIndex]);
     }
 
     public void PlayDeath()
     {
         AudioSource a = GetComponent<AudioSource>();
-        //TODO vary IAW http://andrewmushel.com/sound-effect-variation-in-unity/
-        a.PlayOneShot(deaths[0]);
+        int clipIndex = Random.Range(0, deaths.Length);
+        a.PlayOneShot(deaths[clipIndex]);
     }
 }
