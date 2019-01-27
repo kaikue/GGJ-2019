@@ -12,12 +12,17 @@ public class LetterContent : MonoBehaviour
     public TextMeshProUGUI letterTextBox;
     public GameObject fadedrop;
     public TextMeshProUGUI narrationTextBox;
+    public TextMeshProUGUI specialTopTextBox;
+    public TextMeshProUGUI specialBottomTextBox;
     public float scrollSpeed;
 
     public float fadeSpeed;
     private FadeStatus currentFade = FadeStatus.None;
     private FadeStatus narrationFade = FadeStatus.None;
+    private FadeStatus specialTopFade = FadeStatus.None;
+    private FadeStatus specialBottomFade = FadeStatus.None;
     private bool introComplete = false;
+    private bool epilogueComplete = false;
 
     private enum FadeStatus
     {
@@ -39,6 +44,13 @@ public class LetterContent : MonoBehaviour
     {
         Debug.Log("Starting LetterScene with level=" + data.level + " levelComplete="
             + data.levelComplete);
+
+        if (data.level == _GLOBAL_GAME_DATA.levelCount)
+        {
+            StartCoroutine(RunEpilogue());
+            return;
+        }
+
         //set letter details in separate function
         //they will be long and don't make much sense to place serially with logic
         SetLetterDetails();
@@ -71,7 +83,7 @@ public class LetterContent : MonoBehaviour
             StartCoroutine(RunIntro());
             //also give us some time with the parchment scroll
             parchment.transform.position = new Vector3(parchment.transform.position.x, 
-                -800, parchment.transform.position.z);
+                -725, parchment.transform.position.z);
             fadeDelay = -1;
         }
 
@@ -81,6 +93,10 @@ public class LetterContent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //check if we're just done
+        if(data.level == _GLOBAL_GAME_DATA.levelCount && epilogueComplete)
+            SceneManager.LoadScene("MainMenu");
+
         //first do backdrop if necessary
         Color backdropColor = fadedrop.GetComponent<Image>().color;
         if(currentFade == FadeStatus.FadeIn)
@@ -89,8 +105,7 @@ public class LetterContent : MonoBehaviour
             if (backdropColor.a <= 0)
                 currentFade = FadeStatus.None;
             //Debug.Log("Fading In at " + backdropColor.a);
-            fadedrop.GetComponent<Image>().color = new Color(backdropColor.r,
-                backdropColor.g, backdropColor.b, backdropColor.a);
+            fadedrop.GetComponent<Image>().color = backdropColor;
         }
         else if(currentFade == FadeStatus.FadeOut)
         {
@@ -106,10 +121,7 @@ public class LetterContent : MonoBehaviour
                 {
                     ++data.level;
                     data.levelComplete = false;
-                    if (data.level < _GLOBAL_GAME_DATA.levelCount)
-                        SceneManager.LoadScene("LetterScene");
-                    else
-                        SceneManager.LoadScene("MainMenu");
+                    SceneManager.LoadScene("LetterScene");
                 }
                 else
                 {
@@ -118,8 +130,7 @@ public class LetterContent : MonoBehaviour
                 }
             }
             //Debug.Log("Fading Out at " + backdropColor.a);
-            fadedrop.GetComponent<Image>().color = new Color(backdropColor.r,
-                backdropColor.g, backdropColor.b, backdropColor.a);
+            fadedrop.GetComponent<Image>().color = backdropColor;
         }
         //next do narration if necessary
         Color narrationColor = narrationTextBox.GetComponent<TextMeshProUGUI>().color;
@@ -129,8 +140,7 @@ public class LetterContent : MonoBehaviour
             //Debug.Log("Fading In at " + narrationColor.a);
             if (narrationColor.a >= 1)
                 narrationFade = FadeStatus.None;
-            narrationTextBox.GetComponent<TextMeshProUGUI>().color = new Color(narrationColor.r,
-                narrationColor.g, narrationColor.b, narrationColor.a);
+            narrationTextBox.GetComponent<TextMeshProUGUI>().color = narrationColor;
         }
         else if (narrationFade == FadeStatus.FadeOut)
         {
@@ -138,10 +148,43 @@ public class LetterContent : MonoBehaviour
             //Debug.Log("Fading Out at " + narrationColor.a);
             if (narrationColor.a <= 0)
                 narrationFade = FadeStatus.None;
-            narrationTextBox.GetComponent<TextMeshProUGUI>().color = new Color(narrationColor.r,
-                narrationColor.g, narrationColor.b, narrationColor.a);
+            narrationTextBox.GetComponent<TextMeshProUGUI>().color = narrationColor;
         }
-
+        //next do special if necessary
+        Color specialTopColor = specialTopTextBox.GetComponent<TextMeshProUGUI>().color;
+        if (specialTopFade == FadeStatus.FadeIn)
+        {
+            specialTopColor.a += fadeSpeed;
+            //Debug.Log("Fading In at " + specialTopColor.a);
+            if (specialTopColor.a >= 1)
+                specialTopFade = FadeStatus.None;
+            specialTopTextBox.GetComponent<TextMeshProUGUI>().color = specialTopColor;
+        }
+        else if (specialTopFade == FadeStatus.FadeOut)
+        {
+            specialTopColor.a -= fadeSpeed;
+            //Debug.Log("Fading Out at " + specialTopColor.a);
+            if (specialTopColor.a <= 0)
+                specialTopFade = FadeStatus.None;
+            specialTopTextBox.GetComponent<TextMeshProUGUI>().color = specialTopColor;
+        }
+        Color specialBottomColor = specialBottomTextBox.GetComponent<TextMeshProUGUI>().color;
+        if (specialBottomFade == FadeStatus.FadeIn)
+        {
+            specialBottomColor.a += fadeSpeed;
+            //Debug.Log("Fading In at " + narrationColor.a);
+            if (specialBottomColor.a >= 1)
+                specialBottomFade = FadeStatus.None;
+            specialBottomTextBox.GetComponent<TextMeshProUGUI>().color = specialBottomColor;
+        }
+        else if (specialBottomFade == FadeStatus.FadeOut)
+        {
+            specialBottomColor.a -= fadeSpeed;
+            //Debug.Log("Fading Out at " + narrationColor.a);
+            if (specialBottomColor.a <= 0)
+                specialBottomFade = FadeStatus.None;
+            specialBottomTextBox.GetComponent<TextMeshProUGUI>().color = specialBottomColor;
+        }
     }
 
     public IEnumerator WaitForFadeIn(float fadeDelay)
@@ -196,7 +239,7 @@ public class LetterContent : MonoBehaviour
         while (narrationFade != FadeStatus.None)
             yield return new WaitForSeconds(0.1f);
         //TODO merge these next two
-        narrationTextBox.text = "They are the letters he sent to his family...";
+        /*narrationTextBox.text = "They are the letters he sent to his family...";
         narrationFade = FadeStatus.FadeIn;
         while (narrationFade != FadeStatus.None)
             yield return new WaitForSeconds(0.1f);
@@ -209,25 +252,88 @@ public class LetterContent : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         narrationFade = FadeStatus.FadeOut;
         while (narrationFade != FadeStatus.None)
+            yield return new WaitForSeconds(0.1f);*/
+        specialTopTextBox.text = "They are the letters he sent to his family...";
+        specialTopFade = FadeStatus.FadeIn;
+        while (specialTopFade != FadeStatus.None)
+            yield return new WaitForSeconds(0.1f);
+        specialBottomTextBox.text = "back home.";
+        specialBottomFade = FadeStatus.FadeIn;
+        while (specialBottomFade != FadeStatus.None)
+            yield return new WaitForSeconds(0.1f);
+        specialTopFade = FadeStatus.FadeOut;
+        specialBottomFade = FadeStatus.FadeOut;
+        while (specialBottomFade != FadeStatus.None)
             yield return new WaitForSeconds(0.1f);
         introComplete = true;
     }
 
-    private IEnumerator DoNarrationFade()
+    private IEnumerator RunEpilogue()
     {
+        //end the story
+        specialTopTextBox.text = "There were no more letters...";
+        specialTopFade = FadeStatus.FadeIn;
+        while (specialTopFade != FadeStatus.None)
+            yield return new WaitForSeconds(0.1f);
+        float survivors = 0;
+        for (int l = 0; l < _GLOBAL_GAME_DATA.levelCount; ++l)
+        {
+            if (data.levelSuccess[l])
+                ++survivors;
+            Debug.Log("Someone survived");
+        }
+        Debug.Log("Win Condition = " + _GLOBAL_GAME_DATA.levelCount / 2);
+        if ((float) _GLOBAL_GAME_DATA.levelCount / 2.0f >= survivors)
+        {
+            specialBottomTextBox.text = "with the help of his surviving friends, your grandfather made it home after the war.";
+        }
+        else
+        {
+            specialBottomTextBox.text = "with his friends gone, your grandfather never made it home.";
+        }
+        specialBottomFade = FadeStatus.FadeIn;
+        while (specialBottomFade != FadeStatus.None)
+            yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
+        specialTopFade = FadeStatus.FadeOut;
+        specialBottomFade = FadeStatus.FadeOut;
+        while (specialBottomFade != FadeStatus.None)
+            yield return new WaitForSeconds(0.1f);
+        narrationTextBox.text = "";
+        //Provide the results
+        //TODO make this easier
+        if (data.levelSuccess[0])
+            narrationTextBox.text += "Franklin came home.";
+        else
+            narrationTextBox.text += "Franklin didn't make it home.";
+        narrationTextBox.text += "\n";
+        if (data.levelSuccess[1])
+            narrationTextBox.text += "Franky came home.";
+        else
+            narrationTextBox.text += "Franky didn't make it home.";
         narrationFade = FadeStatus.FadeIn;
-        while(narrationFade != FadeStatus.None)
-           yield return new WaitForSeconds(0.1f); //this needs to be long enough that we're completely faded in - just do tweaks for now
+        while (narrationFade != FadeStatus.None)
+            yield return new WaitForSeconds(0.1f);
         narrationFade = FadeStatus.FadeOut;
         while (narrationFade != FadeStatus.None)
-            yield return new WaitForSeconds(0.1f); //this needs to be long enough that we're completely faded in - just do tweaks for now
+            yield return new WaitForSeconds(0.1f);
+        //Salute
+        narrationTextBox.text = "We thank our military service men and women "
+            + "who can't be home right now so we can GGJ.";
+        narrationFade = FadeStatus.FadeIn;
+        while (narrationFade != FadeStatus.None)
+            yield return new WaitForSeconds(0.1f);
+        narrationFade = FadeStatus.FadeOut;
+        while (narrationFade != FadeStatus.None)
+            yield return new WaitForSeconds(0.1f);
+        epilogueComplete = true;
     }
 
     private void SetLetterDetails()
     {
-        level_startLevelFadeOutTime[0] = 15; //TODO - demo number, actually manually adjust this
+        level_startLevelFadeOutTime[0] = 13;
         level_postLevelStartPosition[0] = -50;
-        level_endLetterFadeOutTime[0] = 26;
+        level_endLetterFadeOutTime[0] = 25.5f;
         level_textPrefix[0] = "Dear Mary,\n\n\tThis letter must be brief. It's been over a week "
             + "since we began our attack on Carentan. They were ready for us. I'm sure by the "
             + "time you get this letter you'll have heard about Franklin.\n\n";
@@ -238,9 +344,9 @@ public class LetterContent : MonoBehaviour
         level_textSuffix[0] = "I'm sorry but I have to go now. I'll write again soon.\n\n"
             + "With love,\n\nJames";
 
-        level_startLevelFadeOutTime[1] = 13;
+        level_startLevelFadeOutTime[1] = 13.5f;
         level_postLevelStartPosition[1] = -50;
-        level_endLetterFadeOutTime[1] = 26;
+        level_endLetterFadeOutTime[1] = 25.5f;
         level_textPrefix[1] = "Dear Mary,\n\n\tDo you remember how clear the sky was "
             + "that night in the cornfield before I left? We had a sky like that here. "
             + "Franky was point man on patrol. Perhaps news has already reached you.\n\n";
