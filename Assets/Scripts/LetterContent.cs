@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -215,7 +215,7 @@ public class LetterContent : MonoBehaviour
 
     private IEnumerator RunIntro()
     {
-        narrationTextBox.text = "You were helping clean your grandparents attic";
+        narrationTextBox.text = "You are helping clean your grandma's attic";
         narrationFade = FadeStatus.FadeIn;
         while (narrationFade != FadeStatus.None)
             yield return new WaitForSeconds(0.1f);
@@ -239,7 +239,8 @@ public class LetterContent : MonoBehaviour
         while (narrationFade != FadeStatus.None)
             yield return new WaitForSeconds(0.1f);
         //TODO merge these next two
-        /*narrationTextBox.text = "They are the letters he sent to his family...";
+        /*narrationTextBox.text = "They are the letters he sent home,"
+    		+ " to his wife and children...";
         narrationFade = FadeStatus.FadeIn;
         while (narrationFade != FadeStatus.None)
             yield return new WaitForSeconds(0.1f);
@@ -253,7 +254,8 @@ public class LetterContent : MonoBehaviour
         narrationFade = FadeStatus.FadeOut;
         while (narrationFade != FadeStatus.None)
             yield return new WaitForSeconds(0.1f);*/
-        specialTopTextBox.text = "They are the letters he sent to his sweetheart...";
+        specialTopTextBox.text = "They are the letters he sent home,"
+    		+ " to his wife and children...";
         specialTopFade = FadeStatus.FadeIn;
         while (specialTopFade != FadeStatus.None)
             yield return new WaitForSeconds(0.1f);
@@ -285,11 +287,11 @@ public class LetterContent : MonoBehaviour
         Debug.Log("Win Condition = " + _GLOBAL_GAME_DATA.levelCount / 2);
         if ((float) _GLOBAL_GAME_DATA.levelCount / 2.0f >= survivors)
         {
-            specialBottomTextBox.text = "with the help of his surviving friends, your grandfather made it home after the war.";
+            specialBottomTextBox.text = "The only memory of your grandfather who never made it home.";
         }
         else
         {
-            specialBottomTextBox.text = "with his friends gone, your grandfather never made it home.";
+            specialBottomTextBox.text = "The only memory of your grandfather who never made it home.";
         }
         specialBottomFade = FadeStatus.FadeIn;
         while (specialBottomFade != FadeStatus.None)
@@ -303,14 +305,14 @@ public class LetterContent : MonoBehaviour
         //Provide the results
         //TODO make this easier
         if (data.levelSuccess[0])
-            narrationTextBox.text += "Franklin came home.";
-        else
-            narrationTextBox.text += "Franklin didn't make it home.";
-        narrationTextBox.text += "\n";
-        if (data.levelSuccess[1])
             narrationTextBox.text += "Franky came home.";
         else
             narrationTextBox.text += "Franky didn't make it home.";
+        narrationTextBox.text += "\n";
+        if (data.levelSuccess[1])
+            narrationTextBox.text += "Bill came home.";
+        else
+            narrationTextBox.text += "Bill didn't make it home.";
         narrationFade = FadeStatus.FadeIn;
         while (narrationFade != FadeStatus.None)
             yield return new WaitForSeconds(0.1f);
@@ -341,7 +343,8 @@ public class LetterContent : MonoBehaviour
             + "destroying that tank, you know?";
         level_textFailure[0] = "Please tell Mrs. Thomas that Franky fought bravely. I haven't "
             + "found the heart to write her myself.";
-        level_textSuffix[0] = "I'm sorry but I have to go now. I'll write again soon.\n\n"
+        level_textSuffix[0] = "I'm sorry but I have to go now. Tell the children"
+            + " I am well.  I'll write again soon.\n\n"
             + "With love,\n\nJames";
 
         level_startLevelFadeOutTime[1] = 13.5f;
@@ -349,13 +352,12 @@ public class LetterContent : MonoBehaviour
         level_endLetterFadeOutTime[1] = 25.5f;
         level_textPrefix[1] = "Dear Mary,\n\n\tDo you remember how clear the sky was "
             + "that night in the cornfield before I left? We had a sky like that here "
-            + "when we were on patrol. Do you remember Mrs. Thomas' boy, John?"
-            + "Perhaps news has already reached you.\n\n";
-        level_textSuccess[1] = "He deserves all the praise he gets. I think of him "
-            + "differently now. Not the Franky we grew up with.";
+            + "when we were on patrol. You remember Mrs. Peterson's boy, Bill?"
+            + "He was point man that night.  Perhaps news has already reached you.\n\n";
+        level_textSuccess[1] = "He deserves all the praise he gets.";
         level_textFailure[1] = "I wish there was something I could have done. Maybe I "
-            + "should have taken point. I'll write Mrs. Thomas a letter tonight.";
-        level_textSuffix[1] = "\nYour letters are so important to me. I'll write again "
+            + "should have taken point. I'll write Mrs. Peterson a letter tonight.";
+        level_textSuffix[1] = "\nWe're close to Germany now.  I'll write you and the kids"
             + "as soon as I can.\n\nWith love,\n\nJames";
     }
 }
