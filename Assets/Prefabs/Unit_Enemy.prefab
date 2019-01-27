@@ -99,6 +99,8 @@ MonoBehaviour:
   player: {fileID: 0}
   projectile_speed: 0
   reload_speed: 0
+  run_speed: 4
+  acceleration: 0.2
   shoot_distance: 9
   projectile: {fileID: 0}
   bulletSpawnPoint: {fileID: 8503488657229596993}
