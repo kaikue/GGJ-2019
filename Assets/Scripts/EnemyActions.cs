@@ -33,19 +33,19 @@ public class EnemyActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		//TODO - MOVEMENT
+		//MOVEMENT
 		if (alive) Move();
 
         //FIRING
-        //TODO - actually get direction based on movement
-
         if(alive && gunLoaded && CanTargetPlayer())
         {
             //shoot
             GameObject shot = Instantiate(projectile, bulletSpawnPoint.transform.position, Quaternion.identity);
             Rigidbody2D rb = shot.GetComponent<Rigidbody2D>();
             rb.velocity = transform.right * projectile_speed * lastLook;
-            Debug.Log("velocity=" + rb.velocity);
+            SoldierAudio a = GetComponentInChildren<SoldierAudio>();
+            a.PlayGunshot();
+            //Debug.Log("velocity=" + rb.velocity);
             gunLoaded = false;
             StartCoroutine(Reload());
         }
@@ -96,6 +96,8 @@ public class EnemyActions : MonoBehaviour
     public void Kill()
     {
         alive = false;
+        SoldierAudio a = GetComponentInChildren<SoldierAudio>();
+        a.PlayDeath();
         //CHANGE SPRITE SET
         //SpriteRenderer s = GetComponent<SpriteRenderer>();
         //s.sprite = Resources.Load<Sprite>("Player/Injured/Playerinj_0001");

@@ -94,7 +94,10 @@ public class LetterContent : MonoBehaviour
         }
         else if(currentFade == FadeStatus.FadeOut)
         {
+            //if we're fading out of the scene, take both visuals and audio with you
             backdropColor.a += fadeSpeed;
+            AudioSource a = GetComponent<AudioSource>();
+            a.volume -= fadeSpeed;
             if (backdropColor.a >= 1)
             {
                 //When the letter fades out, we're also ready for the next state

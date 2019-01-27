@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
                 GameObject shot = Instantiate(projectile, bulletSpawnPoint.transform.position, Quaternion.identity);
                 Rigidbody2D rb = shot.GetComponent<Rigidbody2D>();
                 rb.velocity = transform.right * projectile_speed * lastLook;
+                SoldierAudio a = GetComponentInChildren<SoldierAudio>();
+                a.PlayGunshot();
                 //Debug.Log("velocity=" + rb.velocity);
             }
         }
@@ -58,6 +60,8 @@ public class Player : MonoBehaviour
         else
         {
             injured = true;
+            SoldierAudio a = GetComponentInChildren<SoldierAudio>();
+            a.PlayInjury();
         }
 
     }
@@ -84,7 +88,9 @@ public class Player : MonoBehaviour
 		if (!success)
 		{
 			killed = true;
-			Destroy(gameObject.GetComponent<Rigidbody2D>());
+            SoldierAudio a = GetComponentInChildren<SoldierAudio>();
+            a.PlayDeath();
+            Destroy(gameObject.GetComponent<Rigidbody2D>());
 		}
 
         yield return new WaitForSeconds(deathTime);

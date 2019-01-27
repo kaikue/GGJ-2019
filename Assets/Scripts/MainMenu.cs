@@ -32,5 +32,6 @@ public class MainMenu : MonoBehaviour
         data.levelComplete = false;
         data.levelSuccess = new bool[_GLOBAL_GAME_DATA.levelCount];
         SceneManager.LoadScene("LetterScene");
+        //SceneManager.LoadScene("SampleScene");
     }
 }
