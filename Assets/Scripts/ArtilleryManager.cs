@@ -9,6 +9,8 @@ public class ArtilleryManager : MonoBehaviour
     public GameObject explosion;
     public GameObject playerObject;
 
+    public AudioClip[] explosions;
+
     private GameObject curTarget;
     private GameObject curExplosion;
     private Vector3 targetPosition;
@@ -32,6 +34,8 @@ public class ArtilleryManager : MonoBehaviour
     {
         Destroy(curTarget);
         curExplosion = (GameObject)Instantiate(explosion, targetPosition, targetRotation);
+        int clipIndex = Random.Range(0, explosions.Length);
+        GetComponent<AudioSource>().PlayOneShot(explosions[clipIndex]);
         Destroy(curExplosion, 1f);
 
     }

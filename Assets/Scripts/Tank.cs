@@ -13,6 +13,8 @@ public class Tank : MonoBehaviour
 	public Transform bulletSpawnPoint;
 	public GameObject bulletPrefab;
 	public GameObject explosionPrefab;
+    public AudioClip gunShot;
+    public AudioClip[] explosions;
 
 	private GameObject player;
 
@@ -45,11 +47,19 @@ public class Tank : MonoBehaviour
 		GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
 		Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
 		rb.velocity = direction * shotSpeed;
+        GetComponent<AudioSource>().PlayOneShot(gunShot);
 	}
 
 	public void BlowUp()
 	{
 		Instantiate(explosionPrefab, transform);
-		destroyed = true;
+        AudioSource a = GetComponent<AudioSource>();
+        int clipIndex = Random.Range(0, explosions.Length);
+        a.PlayOneShot(explosions[clipIndex]);
+        clipIndex = Random.Range(0, explosions.Length);
+        a.PlayOneShot(explosions[clipIndex]);
+        clipIndex = Random.Range(0, explosions.Length);
+        a.PlayOneShot(explosions[clipIndex]);
+        destroyed = true;
 	}
 }

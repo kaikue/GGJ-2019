@@ -253,7 +253,7 @@ public class LetterContent : MonoBehaviour
         narrationFade = FadeStatus.FadeOut;
         while (narrationFade != FadeStatus.None)
             yield return new WaitForSeconds(0.1f);*/
-        specialTopTextBox.text = "They are the letters he sent to his family...";
+        specialTopTextBox.text = "They are the letters he sent to his sweetheart...";
         specialTopFade = FadeStatus.FadeIn;
         while (specialTopFade != FadeStatus.None)
             yield return new WaitForSeconds(0.1f);
@@ -339,7 +339,7 @@ public class LetterContent : MonoBehaviour
             + "time you get this letter you'll have heard about Franklin.\n\n";
         level_textSuccess[0] = "Who'd have thought we grew up with Achilles? He saved us by "
             + "destroying that tank, you know?";
-        level_textFailure[0] = "Please tell Mrs. Thomas that Franklin fought bravely. I haven't "
+        level_textFailure[0] = "Please tell Mrs. Thomas that Franky fought bravely. I haven't "
             + "found the heart to write her myself.";
         level_textSuffix[0] = "I'm sorry but I have to go now. I'll write again soon.\n\n"
             + "With love,\n\nJames";
@@ -348,8 +348,9 @@ public class LetterContent : MonoBehaviour
         level_postLevelStartPosition[1] = -50;
         level_endLetterFadeOutTime[1] = 25.5f;
         level_textPrefix[1] = "Dear Mary,\n\n\tDo you remember how clear the sky was "
-            + "that night in the cornfield before I left? We had a sky like that here. "
-            + "Franky was point man on patrol. Perhaps news has already reached you.\n\n";
+            + "that night in the cornfield before I left? We had a sky like that here "
+            + "when we were on patrol. Do you remember Mrs. Thomas' boy, John?"
+            + "Perhaps news has already reached you.\n\n";
         level_textSuccess[1] = "He deserves all the praise he gets. I think of him "
             + "differently now. Not the Franky we grew up with.";
         level_textFailure[1] = "I wish there was something I could have done. Maybe I "
