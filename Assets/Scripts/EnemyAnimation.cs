@@ -31,7 +31,11 @@ public class EnemyAnimation : MonoBehaviour
 
         playerBox = ea.player.GetComponent<BoxCollider2D>();
 
-        if (ea.CanTargetPlayer()) // (ea.bulletSpawnPoint.position.y > playerBox.bounds.max.y)||(ea.bulletSpawnPoint.position.y < playerBox.bounds.min.y))
+        if (!ea.alive)
+        {
+            changeState(STATE_DEAD);
+        }
+        else if (ea.CanTargetPlayer())
         {
             changeState(STATE_IDLE);
         }
@@ -40,7 +44,11 @@ public class EnemyAnimation : MonoBehaviour
             changeState(STATE_WALK);
         }
 
-        if (ea.bulletSpawnPoint.transform.position.x > ea.player.transform.position.x)
+        if (!ea.alive)
+        {
+            // No turning while dead
+        }
+        else if (ea.bulletSpawnPoint.transform.position.x > ea.player.transform.position.x)
         {
             changeDirection("left");
         }

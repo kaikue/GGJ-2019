@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
 	private float SPEED = 5.0f;
     public float projectile_speed;
+    public float deathTime;
     public GameObject projectile;
     public Transform bulletSpawnPoint;
 
@@ -52,9 +53,7 @@ public class Player : MonoBehaviour
         if(injured)
         {
             //end game
-            data.levelSuccess[data.level] = false;
-            ++data.level;
-            SceneManager.LoadScene("MainMenu");
+            StartCoroutine(Death());
         }
         else
         {
@@ -69,15 +68,18 @@ public class Player : MonoBehaviour
         {
             injured = true;
             //end game
-            data.levelSuccess[data.level] = false;
-            ++data.level;
-            SceneManager.LoadScene("MainMenu");
+            StartCoroutine(Death());
         }
     }
 
-    private void Death()
+    private IEnumerator Death()
     {
         killed = true;
         Destroy(gameObject.GetComponent<Rigidbody2D>());
+
+        yield return new WaitForSeconds(deathTime);
+        data.levelSuccess[data.level] = false;
+        ++data.level;
+        SceneManager.LoadScene("MainMenu");
     }
 }

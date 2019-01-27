@@ -17,7 +17,7 @@ public class EnemyActions : MonoBehaviour
     public GameObject projectile;
 	public Transform bulletSpawnPoint;
 	private bool gunLoaded = true;
-    private bool alive = true;
+    public bool alive = true;
 
     private float lastLook = -1;    //start left towards where player starts
     public float decomposeTime;
@@ -99,6 +99,7 @@ public class EnemyActions : MonoBehaviour
         //CHANGE SPRITE SET
         //SpriteRenderer s = GetComponent<SpriteRenderer>();
         //s.sprite = Resources.Load<Sprite>("Player/Injured/Playerinj_0001");
+        Destroy(gameObject.GetComponent<Rigidbody2D>());
         Destroy(gameObject, decomposeTime);
     }
 
