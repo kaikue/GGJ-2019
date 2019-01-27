@@ -8,9 +8,11 @@ public class Tank : MonoBehaviour
 	public float shootDistance;
 	public float shootTime;
 	public float shotSpeed;
+	private bool destroyed = false;
 
 	public Transform bulletSpawnPoint;
 	public GameObject bulletPrefab;
+	public GameObject explosionPrefab;
 
 	private GameObject player;
 
@@ -22,14 +24,18 @@ public class Tank : MonoBehaviour
 	
 	private IEnumerator TargetPlayer()
     {
-		float playerDist = Vector2.Distance(transform.position, player.transform.position);
-		if (playerDist < shootDistance)
+		if (!destroyed)
 		{
-			Shoot();
-		}
 
-		yield return new WaitForSeconds(shootTime);
-		yield return TargetPlayer();
+			float playerDist = Vector2.Distance(transform.position, player.transform.position);
+			if (playerDist < shootDistance)
+			{
+				Shoot();
+			}
+
+			yield return new WaitForSeconds(shootTime);
+			yield return TargetPlayer();
+		}
 	}
 
 	private void Shoot()
@@ -39,5 +45,11 @@ public class Tank : MonoBehaviour
 		GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.transform.position, Quaternion.identity);
 		Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
 		rb.velocity = direction * shotSpeed;
+	}
+
+	public void BlowUp()
+	{
+		Instantiate(explosionPrefab, transform);
+		destroyed = true;
 	}
 }

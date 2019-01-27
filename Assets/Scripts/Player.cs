@@ -70,6 +70,12 @@ public class Player : MonoBehaviour
             //end game
             StartCoroutine(Death());
         }
+
+		if (other.gameObject.CompareTag("DestroySpot"))
+		{
+			//TODO: throw grenade animation
+			other.GetComponentInParent<Tank>().BlowUp();
+		}
     }
 
     private IEnumerator Death()
