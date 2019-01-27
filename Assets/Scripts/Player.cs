@@ -89,7 +89,6 @@ public class Player : MonoBehaviour
 
         yield return new WaitForSeconds(deathTime);
         data.levelSuccess[data.level] = success;
-        ++data.level;
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("LetterScene");
     }
 }

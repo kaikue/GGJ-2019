@@ -10,5 +10,5 @@ public class _GLOBAL_GAME_DATA : ScriptableObject
     public int level = 0;
     public bool levelComplete = false;
     public const int levelCount = 2;
-    public bool[] levelSuccess = new bool[levelCount];
+    public bool[] levelSuccess;
 }

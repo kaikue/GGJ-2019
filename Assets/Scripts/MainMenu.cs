@@ -28,8 +28,9 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        //TEMPORARILY MAKE first combat scene first
-        //eventually make letter first
-        SceneManager.LoadScene("SampleScene");
+        data.level = 0;
+        data.levelComplete = false;
+        data.levelSuccess = new bool[_GLOBAL_GAME_DATA.levelCount];
+        SceneManager.LoadScene("LetterScene");
     }
 }

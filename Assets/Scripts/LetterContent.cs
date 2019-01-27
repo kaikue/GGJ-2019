@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LetterContent : MonoBehaviour
@@ -36,13 +37,15 @@ public class LetterContent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("Starting LetterScene with level=" + data.level + " levelComplete="
+            + data.levelComplete);
         //set letter details in separate function
         //they will be long and don't make much sense to place serially with logic
         SetLetterDetails();
 
         //Actively move letter, and fade in and out appropriately
         parchment.GetComponent<Rigidbody2D>().velocity = new Vector2(0, scrollSpeed);
-        float fadeDelay;
+        float fadeDelay = 0;
         if(data.levelComplete)
         {
             //populate text
@@ -53,16 +56,13 @@ public class LetterContent : MonoBehaviour
                 letterTextBox.text += level_textFailure[data.level];
             letterTextBox.text += level_textSuffix[data.level];
             //start where we left of with the letter - part way down
-            parchment.transform.position = new Vector3(0, level_postLevelStartPosition[data.level], 0);
-            //now fade and move on to next level
-            fadeDelay = level_endLetterFadeOutTime[data.level];
-            ++data.level;
+            parchment.transform.position = new Vector3(parchment.transform.position.x, 
+                level_postLevelStartPosition[data.level], parchment.transform.position.z);
         }
         else
         {
             //all we can do so far is prefix and fade
             letterTextBox.text = level_textPrefix[data.level];
-            fadeDelay = level_startLevelFadeOutTime[data.level];
         }
 
         //Perform the intro if necessary but set stuff up for the letter still running
@@ -96,7 +96,24 @@ public class LetterContent : MonoBehaviour
         {
             backdropColor.a += fadeSpeed;
             if (backdropColor.a >= 1)
+            {
+                //When the letter fades out, we're also ready for the next state
                 currentFade = FadeStatus.None;
+                if (data.levelComplete)
+                {
+                    ++data.level;
+                    data.levelComplete = false;
+                    if (data.level < _GLOBAL_GAME_DATA.levelCount)
+                        SceneManager.LoadScene("LetterScene");
+                    else
+                        SceneManager.LoadScene("MainMenu");
+                }
+                else
+                {
+                    data.levelComplete = true;
+                    SceneManager.LoadScene("SampleScene");
+                }
+            }
             //Debug.Log("Fading Out at " + backdropColor.a);
             fadedrop.GetComponent<Image>().color = new Color(backdropColor.r,
                 backdropColor.g, backdropColor.b, backdropColor.a);
@@ -126,8 +143,14 @@ public class LetterContent : MonoBehaviour
 
     public IEnumerator WaitForFadeIn(float fadeDelay)
     {
-        if (fadeDelay > 0)
+        if (fadeDelay >= 0)
+        {
             yield return new WaitForSeconds(fadeDelay);
+            if(data.levelComplete)
+                StartCoroutine(WaitForFadeOut(level_endLetterFadeOutTime[data.level]));
+            else
+                StartCoroutine(WaitForFadeOut(level_startLevelFadeOutTime[data.level]));
+        }
         else
         {
             while (!introComplete)
@@ -200,8 +223,8 @@ public class LetterContent : MonoBehaviour
     private void SetLetterDetails()
     {
         level_startLevelFadeOutTime[0] = 15; //TODO - demo number, actually manually adjust this
-        level_postLevelStartPosition[0] = -300;
-        level_endLetterFadeOutTime[0] = 10;
+        level_postLevelStartPosition[0] = -50;
+        level_endLetterFadeOutTime[0] = 26;
         level_textPrefix[0] = "Dear Mary,\n\n\tThis letter must be brief. It's been over a week "
             + "since we began our attack on Carentan. They were ready for us. I'm sure by the "
             + "time you get this letter you'll have heard about Franklin.\n\n";
@@ -212,9 +235,9 @@ public class LetterContent : MonoBehaviour
         level_textSuffix[0] = "I'm sorry but I have to go now. I'll write again soon.\n\n"
             + "With love,\n\nJames";
 
-        level_startLevelFadeOutTime[1] = 10;
-        level_postLevelStartPosition[1] = -300;
-        level_endLetterFadeOutTime[1] = 10;
+        level_startLevelFadeOutTime[1] = 13;
+        level_postLevelStartPosition[1] = -50;
+        level_endLetterFadeOutTime[1] = 26;
         level_textPrefix[1] = "Dear Mary,\n\n\tDo you remember how clear the sky was "
             + "that night in the cornfield before I left? We had a sky like that here. "
             + "Franky was point man on patrol. Perhaps news has already reached you.\n\n";
@@ -223,6 +246,6 @@ public class LetterContent : MonoBehaviour
         level_textFailure[1] = "I wish there was something I could have done. Maybe I "
             + "should have taken point. I'll write Mrs. Thomas a letter tonight.";
         level_textSuffix[1] = "\nYour letters are so important to me. I'll write again "
-            + "as soon as I can.";
+            + "as soon as I can.\n\nWith love,\n\nJames";
     }
 }
