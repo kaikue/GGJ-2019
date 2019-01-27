@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
             //end game
             data.levelSuccess[data.level] = false;
             ++data.level;
+            data.levelComplete = true;
             SceneManager.LoadScene("MainMenu");
         }
         else
@@ -70,7 +71,8 @@ public class Player : MonoBehaviour
             injured = true;
             //end game
             data.levelSuccess[data.level] = false;
-            ++data.level;
+
+            data.levelComplete = true;
             SceneManager.LoadScene("MainMenu");
         }
     }

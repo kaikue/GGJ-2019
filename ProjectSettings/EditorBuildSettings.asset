@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: b623e6ac63cf32447904d334e1be2bd1
   - enabled: 1
-    path: Assets/Scenes/MenuTest.unity
+    path: Assets/Scenes/LetterScene.unity
     guid: 3dcbca76c8e7d694cb31590f0eacf003
   - enabled: 1
     path: Assets/Scenes/ClutterTest.unity
