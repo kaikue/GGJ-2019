@@ -93,16 +93,19 @@ public class LetterContent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //first do backdrop if necessary
+        Color backdropColor = fadedrop.GetComponent<Image>().color;
+
+        //see if we're skipping this
+        if (Input.GetButtonDown("Fire1"))
+            currentFade = FadeStatus.FadeOut;
+
         //check if we're just done
-        if(data.level == _GLOBAL_GAME_DATA.levelCount 
+        if (data.level == _GLOBAL_GAME_DATA.levelCount
             && (epilogueComplete || currentFade == FadeStatus.FadeOut))
             SceneManager.LoadScene("MainMenu");
 
-        //first do backdrop if necessary
-        Color backdropColor = fadedrop.GetComponent<Image>().color;
-        if (Input.GetButtonDown("Fire1"))
-            currentFade = FadeStatus.FadeOut;
-        if(currentFade == FadeStatus.FadeOut)
+        if (currentFade == FadeStatus.FadeOut)
         {
             //if we're fading out of the scene, take both visuals and audio with you
             backdropColor.a += fadeSpeed;
@@ -123,8 +126,10 @@ public class LetterContent : MonoBehaviour
                     data.levelComplete = true;
                     if (data.level == 0)
                         SceneManager.LoadScene("SampleScene");
-                    else
+                    else if (data.level == 1)
                         SceneManager.LoadScene("Level 2");
+                    else
+                        SceneManager.LoadScene("MainMenu");
                 }
             }
             //Debug.Log("Fading Out at " + backdropColor.a);
