@@ -336,9 +336,9 @@ public class LetterContent : MonoBehaviour
 
     private void SetLetterDetails()
     {
-        level_startLevelFadeOutTime[0] = 13;
+        level_startLevelFadeOutTime[0] = 10;
         level_postLevelStartPosition[0] = -50;
-        level_endLetterFadeOutTime[0] = 25.5f;
+        level_endLetterFadeOutTime[0] = 23;
         level_textPrefix[0] = "Dear Mary,\n\n\tThis letter must be brief. It's been over a week "
             + "since we began our attack on Carentan. They were ready for us. I'm sure by the "
             + "time you get this letter you'll have heard about Franklin.\n\n";
