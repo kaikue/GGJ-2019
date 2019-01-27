@@ -51,9 +51,10 @@ MonoBehaviour:
   reload_speed: 0
   run_speed: 2
   acceleration: 0.2
-  shoot_distance: 9
+  shoot_distance: 7
   projectile: {fileID: 0}
   bulletSpawnPoint: {fileID: 8503488657229596993}
+  alive: 1
   decomposeTime: 0
 --- !u!61 &6234745787583461283
 BoxCollider2D:
@@ -101,7 +102,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &6895173022653569939
 GameObject:
   m_ObjectHideFlags: 0

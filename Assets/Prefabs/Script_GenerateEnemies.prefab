@@ -46,7 +46,7 @@ MonoBehaviour:
   player: {fileID: 0}
   enemy: {fileID: 3643057597671883267, guid: 7b942b46dc45f7e4b85176bfe8217ebf, type: 3}
   enemyCount: 3
-  projectile_speed: 20
+  projectile_speed: 7
   reload_speed: 1
   projectile: {fileID: 3316016223172686970, guid: 393d8b9911faa6343bdf782c181fe600,
     type: 3}

@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
         if(injured)
         {
             //end game
-            StartCoroutine(Death());
+            StartCoroutine(EndLevel(false));
         }
         else
         {
@@ -68,23 +68,27 @@ public class Player : MonoBehaviour
         {
             injured = true;
             //end game
-            StartCoroutine(Death());
+            StartCoroutine(EndLevel(false));
         }
 
 		if (other.gameObject.CompareTag("DestroySpot"))
 		{
 			//TODO: throw grenade animation
 			other.GetComponentInParent<Tank>().BlowUp();
+			StartCoroutine(EndLevel(true));
 		}
     }
 
-    private IEnumerator Death()
+    private IEnumerator EndLevel(bool success)
     {
-        killed = true;
-        Destroy(gameObject.GetComponent<Rigidbody2D>());
+		if (!success)
+		{
+			killed = true;
+			Destroy(gameObject.GetComponent<Rigidbody2D>());
+		}
 
         yield return new WaitForSeconds(deathTime);
-        data.levelSuccess[data.level] = false;
+        data.levelSuccess[data.level] = success;
         ++data.level;
         SceneManager.LoadScene("MainMenu");
     }
