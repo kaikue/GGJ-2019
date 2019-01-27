@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class BulletCollision : MonoBehaviour
 {
-
-
-    // Start is called before the first frame update
-    void Start()
+	public GameObject particlesPrefab;
+	
+    void Awake()
     {
-        
+		Instantiate(particlesPrefab, transform.position, Quaternion.identity);
     }
 
     // Update is called once per frame
