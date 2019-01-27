@@ -8,11 +8,10 @@ public class Player : MonoBehaviour
 	private float SPEED = 5.0f;
     public float projectile_speed;
     public GameObject projectile;
+    public Transform bulletSpawnPoint;
 
     private Rigidbody2D rb;
     private float lastLook = 1; //right
-    //private const float SPRITE_SIZE_OFFSET = 20 / 1000;  //pixel count offered up by artist when "dynamically assign" didn't... work
-    private const float SPRITE_SIZE_OFFSET = 0.7f;
 
     public bool injured = false;
     public bool killed = false;
@@ -39,8 +38,7 @@ public class Player : MonoBehaviour
             //Debug.Log("Axis=" + Input.GetAxis("Horizontal").ToString() + " Last look x=" + lastLook.ToString());
             if (Input.GetKeyDown(KeyCode.Space))
             {
-
-                GameObject shot = Instantiate(projectile, new Vector2(transform.position.x + lastLook * SPRITE_SIZE_OFFSET, transform.position.y), Quaternion.identity);
+                GameObject shot = Instantiate(projectile, bulletSpawnPoint.transform.position, Quaternion.identity);
                 Rigidbody2D rb = shot.GetComponent<Rigidbody2D>();
                 rb.velocity = transform.right * projectile_speed * lastLook;
                 //Debug.Log("velocity=" + rb.velocity);
