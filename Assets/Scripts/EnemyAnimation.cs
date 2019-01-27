@@ -15,7 +15,6 @@ public class EnemyAnimation : MonoBehaviour
     string _currentDirection = "left";
     int _currentAnimationState = STATE_IDLE;
 
-    private EnemyActions ea = GetComponentInParent<Unit_Enemy>();
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +26,9 @@ public class EnemyAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+            EnemyActions ea = GetComponentInParent<EnemyActions>();
+
             if (ea.CanTargetPlayer())
             {
                 changeState(STATE_IDLE);
