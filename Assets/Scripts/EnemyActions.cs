@@ -34,7 +34,7 @@ public class EnemyActions : MonoBehaviour
     void Update()
     {
 		//TODO - MOVEMENT
-		Move();
+		if (alive) Move();
 
         //FIRING
         //TODO - actually get direction based on movement
