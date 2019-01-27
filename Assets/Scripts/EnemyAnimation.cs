@@ -15,14 +15,14 @@ public class EnemyAnimation : MonoBehaviour
     string _currentDirection = "left";
     int _currentAnimationState = STATE_IDLE;
 
-    private EnemyActions ea = GetComponentInParent<Unit_Enemy>();
+	private EnemyActions ea;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = this.GetComponent<Animator>();
-
-    }
+		ea = GetComponentInParent<EnemyActions>();
+	}
 
     // Update is called once per frame
     void Update()
