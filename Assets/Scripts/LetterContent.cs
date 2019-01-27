@@ -94,7 +94,8 @@ public class LetterContent : MonoBehaviour
     void Update()
     {
         //check if we're just done
-        if(data.level == _GLOBAL_GAME_DATA.levelCount && epilogueComplete)
+        if(data.level == _GLOBAL_GAME_DATA.levelCount 
+            && (epilogueComplete || currentFade == FadeStatus.FadeOut))
             SceneManager.LoadScene("MainMenu");
 
         //first do backdrop if necessary
@@ -353,7 +354,7 @@ public class LetterContent : MonoBehaviour
             + " I am well.  I'll write again soon.\n\n"
             + "With love,\n\nJames";
 
-        level_startLevelFadeOutTime[1] = 14;
+        level_startLevelFadeOutTime[1] = 15;
         level_postLevelStartPosition[1] = -50;
         level_endLetterFadeOutTime[1] = 26f;
         level_textPrefix[1] = "Dear Mary,\n\n\tDo you remember how clear the sky was "
@@ -364,6 +365,6 @@ public class LetterContent : MonoBehaviour
         level_textFailure[1] = "I wish there was something I could have done. Maybe I "
             + "should have taken point. I'll write Mrs. Peterson a letter tonight.";
         level_textSuffix[1] = "\nWe're close to Germany now.  I'll write you and the kids"
-            + "as soon as I can.\n\nWith love,\n\nJames";
+            + " as soon as I can.\n\nWith love,\n\nJames";
     }
 }
