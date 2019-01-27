@@ -287,7 +287,7 @@ public class LetterContent : MonoBehaviour
         Debug.Log("Win Condition = " + _GLOBAL_GAME_DATA.levelCount / 2);
         if ((float) _GLOBAL_GAME_DATA.levelCount / 2.0f >= survivors)
         {
-            specialBottomTextBox.text = "The only memory of your grandfather who never made it home.";
+            specialBottomTextBox.text = "With the help of his surviving friends, your grandfather made it home after the war.";
         }
         else
         {

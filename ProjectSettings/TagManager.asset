@@ -47,6 +47,9 @@ TagManager:
   - name: Background
     uniqueID: 1320925151
     locked: 0
+  - name: Clutter
+    uniqueID: 2700877345
+    locked: 0
   - name: Units
     uniqueID: 1180230799
     locked: 0
