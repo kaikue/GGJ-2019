@@ -39,7 +39,12 @@ public class PlayerController : MonoBehaviour
             {
                 changeDirection("right");
             }
-            if (p.injured)
+
+            if (p.killed)
+            {
+                changeState(STATE_DEAD);
+            }
+            else if (p.injured)
             {
                 changeState(STATE_INJW);
             }
@@ -50,7 +55,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (Input.GetAxis("Vertical") != 0)
         {
-            if(p.injured)
+            if (p.killed)
+            {
+                changeState(STATE_DEAD);
+            }
+            else if (p.injured)
             {
                 changeState(STATE_INJW);
             }

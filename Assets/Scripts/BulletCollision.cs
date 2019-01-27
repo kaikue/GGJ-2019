@@ -22,13 +22,11 @@ public class BulletCollision : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            Debug.Log("Handling player hit");
             Player p = collision.gameObject.GetComponent<Player>();
             p.HandleHit();
         }
         else if(collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("Handling enemy hit");
             EnemyActions ea = collision.gameObject.GetComponent<EnemyActions>();
             ea.Kill();
         }

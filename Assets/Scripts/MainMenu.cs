@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
         else
             display.text = "Completed Level " + data.level;
 
+        data.level = 0;
     }
 
     // Update is called once per frame

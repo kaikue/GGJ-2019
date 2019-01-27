@@ -69,6 +69,7 @@ public class Player : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Explosion"))
         {
+            injured = true;
             //end game
             data.levelSuccess[data.level] = false;
             ++data.level;
@@ -76,7 +77,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void death()
+    private void Death()
     {
         killed = true;
         Destroy(gameObject.GetComponent<Rigidbody2D>());
