@@ -6,9 +6,13 @@ public class EnemyActions : MonoBehaviour
 {
     public GameObject player;
     private BoxCollider2D playerBox;
+	private Rigidbody2D rb;
+	private SpriteRenderer sr;
 
     public float projectile_speed;
     public float reload_speed;
+    public float run_speed;
+	public float acceleration;
 	public float shoot_distance;
     public GameObject projectile;
 	public Transform bulletSpawnPoint;
@@ -21,13 +25,16 @@ public class EnemyActions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		rb = GetComponent<Rigidbody2D>();
+		sr = GetComponent<SpriteRenderer>();
         playerBox = player.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //TODO - MOVEMENT
+		//TODO - MOVEMENT
+		Move();
 
         //FIRING
         //TODO - actually get direction based on movement
@@ -44,6 +51,35 @@ public class EnemyActions : MonoBehaviour
         }
         
     }
+
+	private void Move()
+	{
+		float playerDist = Vector2.Distance(transform.position, player.transform.position);
+		if (playerDist > shoot_distance) return;
+
+		int moveY = 0;
+
+		if (bulletSpawnPoint.position.y > playerBox.bounds.max.y)
+		{
+			moveY = -1;
+		}
+		else if (bulletSpawnPoint.position.y < playerBox.bounds.min.y)
+		{
+			moveY = 1;
+		}
+
+		rb.velocity = Vector2.Lerp(rb.velocity, new Vector2(0, moveY * run_speed), acceleration);
+		if (player.transform.position.x < transform.position.x)
+		{
+			lastLook = -1;
+			transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+		}
+		else
+		{
+			lastLook = 1;
+			transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+		}
+	}
 
 	public bool CanTargetPlayer()
 	{
