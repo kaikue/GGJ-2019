@@ -73,6 +73,12 @@ public class Player : MonoBehaviour
             ++data.level;
             SceneManager.LoadScene("MainMenu");
         }
+
+		if (other.gameObject.CompareTag("DestroySpot"))
+		{
+			//TODO: throw grenade animation
+			other.GetComponentInParent<Tank>().BlowUp();
+		}
     }
 
     private void Death()
