@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
 	private float SPEED = 5.0f;
     public float projectile_speed;
+    public float deathTime;
     public GameObject projectile;
     public Transform bulletSpawnPoint;
 
@@ -52,10 +53,7 @@ public class Player : MonoBehaviour
         if(injured)
         {
             //end game
-            data.levelSuccess[data.level] = false;
-            ++data.level;
-            data.levelComplete = true;
-            SceneManager.LoadScene("MainMenu");
+            StartCoroutine(EndLevel(false));
         }
         else
         {
@@ -70,16 +68,28 @@ public class Player : MonoBehaviour
         {
             injured = true;
             //end game
-            data.levelSuccess[data.level] = false;
-
-            data.levelComplete = true;
-            SceneManager.LoadScene("MainMenu");
+            StartCoroutine(EndLevel(false));
         }
+
+		if (other.gameObject.CompareTag("DestroySpot"))
+		{
+			//TODO: throw grenade animation
+			other.GetComponentInParent<Tank>().BlowUp();
+			StartCoroutine(EndLevel(true));
+		}
     }
 
-    private void Death()
+    private IEnumerator EndLevel(bool success)
     {
-        killed = true;
-        Destroy(gameObject.GetComponent<Rigidbody2D>());
+		if (!success)
+		{
+			killed = true;
+			Destroy(gameObject.GetComponent<Rigidbody2D>());
+		}
+
+        yield return new WaitForSeconds(deathTime);
+        data.levelSuccess[data.level] = success;
+        ++data.level;
+        SceneManager.LoadScene("MainMenu");
     }
 }

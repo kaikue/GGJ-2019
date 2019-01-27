@@ -15,8 +15,9 @@ public class EnemyAnimation : MonoBehaviour
     string _currentDirection = "left";
     int _currentAnimationState = STATE_IDLE;
 
+ 
 	private EnemyActions ea;
-
+    private BoxCollider2D playerBox;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,22 +28,34 @@ public class EnemyAnimation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            if (ea.CanTargetPlayer())
-            {
-                changeState(STATE_IDLE);
-            }
-            else
-            {
-                changeState(STATE_WALK);
-            }
-            if (ea.bulletSpawnPoint.transform.position.x > ea.player.transform.position.x)
-            {
-                changeDirection("left");
-            }
-            else
-            {
-                changeDirection("right");
-            }
+
+        playerBox = ea.player.GetComponent<BoxCollider2D>();
+
+        if (!ea.alive)
+        {
+            changeState(STATE_DEAD);
+        }
+        else if (ea.CanTargetPlayer())
+        {
+            changeState(STATE_IDLE);
+        }
+        else
+        {
+            changeState(STATE_WALK);
+        }
+
+        if (!ea.alive)
+        {
+            // No turning while dead
+        }
+        else if (ea.bulletSpawnPoint.transform.position.x > ea.player.transform.position.x)
+        {
+            changeDirection("left");
+        }
+        else
+        {
+            changeDirection("right");
+        }
 
     }
 

@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         
         Player p = GetComponentInParent<Player>();
-        if (Input.GetAxis("Horizontal") != 0)
+        if (Input.GetAxis("Horizontal") != 0 && !p.killed)
         {
             if (Input.GetAxis("Horizontal") < 0)
             {
