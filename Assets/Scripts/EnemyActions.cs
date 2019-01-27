@@ -84,7 +84,9 @@ public class EnemyActions : MonoBehaviour
 	public bool CanTargetPlayer()
 	{
 		RaycastHit2D raycast = Physics2D.Raycast(bulletSpawnPoint.transform.position, Vector2.right * lastLook, shoot_distance, LayerMask.GetMask("Default"));
-		return raycast.collider != null && raycast.collider.gameObject.CompareTag("Player");
+        if (raycast.collider != null && raycast.collider.gameObject.CompareTag("Player"))
+            return !(raycast.collider.GetComponent<Player>().killed);
+        return false;
 	}
 
     public IEnumerator Reload()
