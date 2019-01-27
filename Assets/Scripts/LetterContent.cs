@@ -99,15 +99,9 @@ public class LetterContent : MonoBehaviour
 
         //first do backdrop if necessary
         Color backdropColor = fadedrop.GetComponent<Image>().color;
-        if(currentFade == FadeStatus.FadeIn)
-        {
-            backdropColor.a -= fadeSpeed;
-            if (backdropColor.a <= 0)
-                currentFade = FadeStatus.None;
-            //Debug.Log("Fading In at " + backdropColor.a);
-            fadedrop.GetComponent<Image>().color = backdropColor;
-        }
-        else if(currentFade == FadeStatus.FadeOut)
+        if (Input.GetButtonDown("Fire1"))
+            currentFade = FadeStatus.FadeOut;
+        if(currentFade == FadeStatus.FadeOut)
         {
             //if we're fading out of the scene, take both visuals and audio with you
             backdropColor.a += fadeSpeed;
@@ -132,6 +126,15 @@ public class LetterContent : MonoBehaviour
             //Debug.Log("Fading Out at " + backdropColor.a);
             fadedrop.GetComponent<Image>().color = backdropColor;
         }
+        else if (currentFade == FadeStatus.FadeIn)
+        {
+            backdropColor.a -= fadeSpeed;
+            if (backdropColor.a <= 0)
+                currentFade = FadeStatus.None;
+            //Debug.Log("Fading In at " + backdropColor.a);
+            fadedrop.GetComponent<Image>().color = backdropColor;
+        }
+
         //next do narration if necessary
         Color narrationColor = narrationTextBox.GetComponent<TextMeshProUGUI>().color;
         if (narrationFade == FadeStatus.FadeIn)
