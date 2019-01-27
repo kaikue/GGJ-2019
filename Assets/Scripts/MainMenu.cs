@@ -12,12 +12,7 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(data.level == 0)
-            display.text = "Game not started";
-        else
-            display.text = "Completed Level " + data.level;
 
-        data.level = 0;
     }
 
     // Update is called once per frame
@@ -33,5 +28,15 @@ public class MainMenu : MonoBehaviour
         data.levelSuccess = new bool[_GLOBAL_GAME_DATA.levelCount];
         SceneManager.LoadScene("LetterScene");
         //SceneManager.LoadScene("SampleScene");
+    }
+
+    public void RollCredits()
+    {
+
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }
