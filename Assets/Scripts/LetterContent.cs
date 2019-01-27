@@ -120,7 +120,10 @@ public class LetterContent : MonoBehaviour
                 else
                 {
                     data.levelComplete = true;
-                    SceneManager.LoadScene("SampleScene");
+                    if (data.level == 0)
+                        SceneManager.LoadScene("SampleScene");
+                    else
+                        SceneManager.LoadScene("Level 2");
                 }
             }
             //Debug.Log("Fading Out at " + backdropColor.a);
@@ -288,7 +291,7 @@ public class LetterContent : MonoBehaviour
             Debug.Log("Someone survived");
         }
         Debug.Log("Win Condition = " + _GLOBAL_GAME_DATA.levelCount / 2);
-        if ((float) _GLOBAL_GAME_DATA.levelCount / 2.0f >= survivors)
+        if (survivors != 0)
         {
             specialBottomTextBox.text = "With the help of his surviving friends, your grandfather made it home after the war.";
         }
@@ -324,7 +327,7 @@ public class LetterContent : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         //Salute
         narrationTextBox.text = "We thank our military service men and women "
-            + "who can't be home right now so we can GGJ.";
+            + "who can't be home right now so we can GGJ!";
         narrationFade = FadeStatus.FadeIn;
         while (narrationFade != FadeStatus.None)
             yield return new WaitForSeconds(0.1f);
@@ -338,7 +341,7 @@ public class LetterContent : MonoBehaviour
     {
         level_startLevelFadeOutTime[0] = 10;
         level_postLevelStartPosition[0] = -50;
-        level_endLetterFadeOutTime[0] = 23;
+        level_endLetterFadeOutTime[0] = 22.5f;
         level_textPrefix[0] = "Dear Mary,\n\n\tThis letter must be brief. It's been over a week "
             + "since we began our attack on Carentan. They were ready for us. I'm sure by the "
             + "time you get this letter you'll have heard about Franklin.\n\n";
@@ -350,9 +353,9 @@ public class LetterContent : MonoBehaviour
             + " I am well.  I'll write again soon.\n\n"
             + "With love,\n\nJames";
 
-        level_startLevelFadeOutTime[1] = 13.5f;
+        level_startLevelFadeOutTime[1] = 14;
         level_postLevelStartPosition[1] = -50;
-        level_endLetterFadeOutTime[1] = 25.5f;
+        level_endLetterFadeOutTime[1] = 26f;
         level_textPrefix[1] = "Dear Mary,\n\n\tDo you remember how clear the sky was "
             + "that night in the cornfield before I left? We had a sky like that here "
             + "when we were on patrol. You remember Mrs. Peterson's boy, Bill?"

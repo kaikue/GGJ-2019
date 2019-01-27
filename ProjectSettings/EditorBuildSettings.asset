@@ -20,7 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ClutterTest.unity
     guid: 4598173889e35dd4f8fdf41288a3685a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level2.unity
     guid: eb4f321f65690b34894cbdeee3cf27b8
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: 80d3ef1b1af5cc741b47536ba7c42307
   m_configObjects: {}
